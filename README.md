@@ -55,3 +55,5 @@ and that's a basic rails form using form_tag
 let's not even worry about what to do in create to actually save the new post, but know that we have all the new post data in params and thats step one.
 
 in terms of naming our form fields here, I'd like to avoid the nested params right now and just have them use post_title and post_content and we'll get to nesting with post[content] later.
+
+<a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
