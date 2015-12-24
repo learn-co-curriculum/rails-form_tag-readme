@@ -3,9 +3,7 @@
 
 ## Rails Forms
 
-When it comes to forms in Rails you will discover that you will have the flexibility to utilize:
-
-* Ruby form gems
+Welcome to the world of forms in Rails, which will give your users the ability to submit data into form fields, this can be used for: creating new database records, building a contact form, integrating a search engine field, and pretty much every other aspect of the application that requires user input. When it comes to forms in Rails you will discover that you will have the flexibility to utilize:
 
 * Built in form helper methods
 
@@ -16,14 +14,16 @@ This lesson is going to begin with integrating HTML form elements and then slowl
 
 ## Rendering the form view
 
-Let's first create a Capybara spec to ensure that going to ```posts/new``` takes us to our form:
+For a user story we'll be giving the ability for a user to create a new post in our BlogFlash application. You can follow along with the code with the repo [here](https://github.com/jordanhudgens/blog-flash). Let's first create a Capybara spec to ensure that going to `posts/new` takes us to our form. If you remember back to the rails route helper lesson we now know we don't need to hard code the route into our tests any long, let's use the standard RESTful convention of `new_post_path` for the route helper name:
 
 ```ruby
 # specs/features/post_spec.rb
 
-scenario 'form route works with new action' do
-  visit new_post_path
-  expect(page.status_code).to eq(200)
+describe 'new post'
+  it 'ensures that the form route works with new action' do
+    visit new_post_path
+    expect(page.status_code).to eq(200)
+  end
 end
 ```
 
@@ -45,23 +45,15 @@ Lastly it says we're missing a template, let's add ```app/views/posts/new.html.e
 ```ruby
 # specs/features/post_spec.rb
 
-scenario 'form renders with the new action' do
-  visit new_post_path
-  expect(page).to have_content("Post Form")
+describe 'new post'
+  it 'has the form render with the new action' do
+    visit new_post_path
+    expect(page).to have_content("Post Form")
+  end
 end
 ```
 
 Running this spec gets a matcher error, we can get this passing by adding the HTML ```<h3>Post Form</h3>``` to the ```new.html.erb``` view template.
-
-Adding this gets our specs passing, now let's do a minor refactor, we're going to use a Rails partial so that we can call our form from other pages, such as an edit page. We'll have a full section and lab dedicated to partials in Rails, so don't worry if your'e not familiar with the syntax, make the following refactor:
-
-```ERB
-<% # app/views/posts/new.html.erb %>
-
-<%= render "form" %>
-```
-
-Then create the partial by running ```touch app/views/posts/_form.html.erb``` and move the ```<h3>Post Form</h3>``` HTML code into the new partial. Running the tests again and everything should still be passing, and now we have abstracted our form so it can be used for more than just the ```new``` action in the future.
 
 
 ## Building the form in HTML
@@ -70,10 +62,12 @@ Our first pass at the form will be in plain HTML, and in this reading we're not 
 
 Let's create a spec for this, it's going to take a while for this to pass since we're going to be spending some time on the HTML creation process, but it's a good practice to ensure all new features are tested before the implementation code is added.
 
+As you are updating the code, make sure to test it out in the browser, don't just rely on the tests, it's important to see the errors in both the tests and the browser since you will want to become familiar with both types of failure messages.
+
 ```ruby
 # specs/features/post_spec.rb
 
-scenario 'new form submits content and redirects to new page and prints out params' do
+it 'shows a new form that submits content and redirects to new page and prints out params' do
   visit new_post_path
 
   fill_in 'post_title', with: "My post title"
@@ -85,7 +79,7 @@ scenario 'new form submits content and redirects to new page and prints out para
 end
 ```
 
-This is a temporary spec since we eventually will want this to form to redirect to a newly created record page, but we'll use it to ensure our form is working properly. This fails for obvious reasons, let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field ```post_title```. Let's add the following HTML form items into the ```_form.html.erb``` view template:
+This is a temporary spec since we eventually will want this to form to redirect to a newly created record page, but we'll use it to ensure our form is working properly. This fails for obvious reasons, let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field `post_title`. Let's add the following HTML form items into the view template:
 
 ```ERB
 <h3>Post Form</h3>
@@ -103,9 +97,9 @@ This is a temporary spec since we eventually will want this to form to redirect 
 
 In looking at both of the input elements, I'm using the standard Rails convention:
 
-* ```id``` - This will have the model name followed by an underscore and then the attribute name
+* `id` - This will have the model name followed by an underscore and then the attribute name
 
-* ```name``` - This is where Rails looks for the parameters and stores it in a Hash. In a traditional Rails application this will be nested inside of the model with the syntax ```model[attribute]```, however we will work through that in a later lesson.
+* `name` - This is where Rails looks for the parameters and stores it in a params Hash. In a traditional Rails application this will be nested inside of the model with the syntax `model[attribute]`, however we will work through that in a later lesson.
 
 Ok, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page, let's first update the form so that it has an action:
 
@@ -113,11 +107,13 @@ Ok, so the spec was able to fill in the form elements and submit, but it's givin
 <form action="<%= posts_path %>">
 ```
 
-This will now redirect to ```/posts```, however we also need to add a method so that the application knows that we are submitting form data via the POST HTTP verb:
+This will now redirect to `/posts`, however we also need to add a method so that the application knows that we are submitting form data via the POST HTTP verb:
 
 ```ERB
 <form action="<%= posts_path %>" method="post">
 ```
+
+If you open up the browser and try this you will get an error since the `create` route doesn't exist yet.
 
 Next we need to draw a route so that the routing system knows what to do when a POST request is sent to the ```/posts``` resource:
 
@@ -135,24 +131,19 @@ new_post  GET     /posts/new(.:format)  posts#new
 post      GET     /post/:id(.:format)   posts#show
 ```
 
-Now let's add in a ```create``` action in the posts' controller and have it grab the params, store them in an instance variable and then redirect to the new page:
+Now let's add in a `create` action in the posts' controller and have it grab the params, store them in an instance variable and then redirect to the new page:
 
 ```ruby
 def create
-  session[:form_params] = params.inspect
+  puts "Here are the params:"
+  puts params.inspect
   redirect_to new_post_path
 end
 ```
 
-I'm storing the values from the form in the session so when we redirect back to the form we can print these values out on the page to ensure the params are processing properly. Lastly, let's update the ```new.html.erb``` view template so it prints out the form values:
+This will print out the form params to the terminal so you will be able to see them in the same window that the rails server is running.
 
-```ERB
-<%= render "form" %>
-
-<%= session[:form_params] if session[:form_params] %>
-```
-
-This is temporary code that we will use to make sure our form is working properly, I'm storing the values in the session so it's more straightforward to test and pass between the controller actions. If you run the rails server and go to the ```posts/new``` page and fill in the title and description form elements and click submit you will find a new type of error:
+If you run the rails server and go to the ```posts/new``` page and fill in the title and description form elements and click submit you will find a new type of error:
 
 ![InvalidAuthenticityToken](http://reif.io/lib/flatiron/InvalidAuthenticityToken.png)
 
@@ -185,7 +176,7 @@ To fix this ```ActionController::InvalidAuthenticityToken``` error, we can integ
   <label>Post Description</label><br>
   <textarea id="post_description" name="post[description]"></textarea><br>
 
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <input type="submit" value="Submit Post">
 </form>
 ```
@@ -195,7 +186,7 @@ If you refresh the page you will see that not only is the error fixed, but the e
 
 ## Using form helpers
 
-The ActionView has a number of methods we can use to streamline our form. Let's start by integrating a Rails form_tag element:
+The `ActionView` has a number of methods we can use to streamline our form. What's `ActionView`? `ActionView` is a sub-gem of Rails that has a number of helper methods that we can use in a Rails application that assist with streamling view template code. Let's start by integrating a Rails `form_tag` element:
 
 ```ERB
 <%= form_tag posts_path do %>
@@ -225,9 +216,9 @@ Running the tests you will see that all of the tests are still passing. If you g
 </form>
 ```
 
-The ```form_tag``` Rails helper is smart enough to know that we want to pass the form params using the POST method and it automatically render the HTML that we were writing by hand before.
+The `form_tag` Rails helper is smart enough to know that we want to pass the form params using the POST method and it automatically render the HTML that we were writing by hand before.
 
-Now let's integrate some other form helpers to let Rails generate the input elements for us, for this form we'll be using the ```text_field_tag``` and ```text_area_tag``` tag and pass them the attributes with symbols. We'll also replace the HTML tag for the submit button with the ```submit_tag```:
+Now let's integrate some other form helpers to let Rails generate the input elements for us, for this form we'll be using the `text_field_tag` and `text_area_tag` tag and pass them the attributes with symbols. It's important to realize that form helpers aren't magic, they are simply Ruby methods that have arguments, which are the inputs and additional parameters related to the form elements. In addition to updating the form fields, we'll also replace the HTML tag for the submit button with the `submit_tag`. Lastly, we can remove the manual authenticity token call since that is generated automatically through the `form_tag` helper:
 
 ```ERB
 <%= form_tag posts_path do %>
@@ -236,12 +227,26 @@ Now let's integrate some other form helpers to let Rails generate the input elem
 
   <label>Post Description</label><br>
   <%= text_area_tag :description %><br>
-
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   
   <%= submit_tag "Submit Post" %>
 <% end %>
 ```
+
+So what HTML does this generate for us? Below is the raw HTML:
+
+```HTML
+<form action="/posts" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="uQUOmh8edu8S/x5mVqp4aMpqEkHGbBYCdY6NVrvBut7PjNAUyVpsMOYQn2vS1X9kJ6aJJA++za/ZzcNvRwkMFQ==" />
+  <label>Post title:</label><br>
+  <input type="text" name="title" id="title" /><br>
+
+  <label>Post Description</label><br>
+  <textarea name="description" id="description"></textarea><br>
+  
+  <input type="submit" name="commit" value="Submit Post" />
+</form>
+```
+
+Notice how the `name` and `id` elements are different from what we needed to use when we manually built out the form? By utilizing the form tag helpers Rails streamlined the naming structure for the `name` and `id` values since we were able to simply provide a symbol of the attribute the input was associated with.
 
 This is all working on the page, however it broke some of our tests since it streamlined the ID attribute in the form, so let's update our spec:
 
