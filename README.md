@@ -14,12 +14,12 @@ This lesson is going to begin with integrating HTML form elements and then slowl
 
 ## Rendering the form view
 
-For a user story we'll be giving the ability for a user to create a new post in our BlogFlash application. You can follow along with the code with the repo [here](https://github.com/jordanhudgens/blog-flash). Let's first create a Capybara spec to ensure that going to `posts/new` takes us to our form. If you remember back to the rails route helper lesson we now know we don't need to hard code the route into our tests any long, let's use the standard RESTful convention of `new_post_path` for the route helper name:
+Today we'll be giving the user the ability to create a new post in our BlogFlash application. Let's first create a Capybara spec to ensure that going to `posts/new` takes us to our form. If you remember back to the rails route helper lesson we now know we don't need to hard code the route into our tests any long, let's use the standard RESTful convention of `new_post_path` for the route helper name:
 
 ```ruby
 # specs/features/post_spec.rb
 
-describe 'new post'
+describe 'new post' do
   it 'ensures that the form route works with new action' do
     visit new_post_path
     expect(page.status_code).to eq(200)
@@ -27,25 +27,25 @@ describe 'new post'
 end
 ```
 
-As expected this results in a failure saying that we don't have a ```new_post_path``` method, so let's create that in our route file:
+As expected this results in a failure saying that we don't have a `new_post_path` method, so let's create that in our route file:
 
 ```ruby
 resources :posts, only: [:index, :new]
 ```
 
-Now it gives the failure ```The action 'new' could not be found for PostsController```, to correct this let's add a ```new``` action in the post controller:
+Now it gives the failure `The action 'new' could not be found for PostsController`, to correct this let's add a `new` action in the `post` controller:
 
 ```ruby
 def new
 end
 ```
 
-Lastly it says we're missing a template, let's add ```app/views/posts/new.html.erb```. The tests are all passing for our routing, let's add a matcher spec to make sure the form itself is being shown on this page:
+Lastly it says we're missing a template, let's add `app/views/posts/new.html.erb`. The tests are all passing for our routing, let's add a matcher spec to make sure the form itself is being shown on this page:
 
 ```ruby
 # specs/features/post_spec.rb
 
-describe 'new post'
+describe 'new post' do
   it 'has the form render with the new action' do
     visit new_post_path
     expect(page).to have_content("Post Form")
@@ -53,7 +53,7 @@ describe 'new post'
 end
 ```
 
-Running this spec gets a matcher error, we can get this passing by adding the HTML ```<h3>Post Form</h3>``` to the ```new.html.erb``` view template.
+Running this spec gets a matcher error, we can get this passing by adding the HTML `<h3>Post Form</h3>` to the `new.html.erb` view template.
 
 
 ## Building the form in HTML
@@ -115,7 +115,7 @@ This will now redirect to `/posts`, however we also need to add a method so that
 
 If you open up the browser and try this you will get an error since the `create` route doesn't exist yet.
 
-Next we need to draw a route so that the routing system knows what to do when a POST request is sent to the ```/posts``` resource:
+Next we need to draw a route so that the routing system knows what to do when a POST request is sent to the `/posts` resource:
 
 ```ruby
 resources :posts, only: [:index, :new, :create]
@@ -135,8 +135,6 @@ Now let's add in a `create` action in the posts' controller and have it grab the
 
 ```ruby
 def create
-  puts "Here are the params:"
-  puts params.inspect
   redirect_to new_post_path
 end
 ```
@@ -145,7 +143,7 @@ This will print out the form params to the terminal so you will be able to see t
 
 If you run the rails server and go to the ```posts/new``` page and fill in the title and description form elements and click submit you will find a new type of error:
 
-![InvalidAuthenticityToken](http://reif.io/lib/flatiron/InvalidAuthenticityToken.png)
+![InvalidAuthenticityToken](https://s3.amazonaws.com/flatiron-bucket/readme-lessons/InvalidAuthenticityToken.png)
 
 Which leads us to a very important part of Rails forms: CSRF.
 
@@ -164,7 +162,7 @@ First and foremost, CSRF is an acronym for: Cross-Site Request Forgery (CSRF). I
 
 This is a Cross-Site Request Forgery request, one site makes a request to another site via a form. Rails blocks this from happening by default by requiring that a unique authenticity token is submitted with each form. This authenticity token is stored in the session and can't be hijacked by hackers since it performs a match check when the form is submitted and will throw an error if the token isn't there or doesn't match.
 
-To fix this ```ActionController::InvalidAuthenticityToken``` error, we can integrate the ```form_authenticity_token``` helper into the form as a hidden field:
+To fix this `ActionController::InvalidAuthenticityToken` error, we can integrate the `form_authenticity_token` helper into the form as a hidden field:
 
 ```ERB
 <h3>Post Form</h3>

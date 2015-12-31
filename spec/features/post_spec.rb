@@ -1,30 +1,24 @@
 require 'rails_helper'
 
-describe 'navigate' do
-  before do
-    @post = Post.create(title: "My Post", description: "My post desc")
-  end
-
-  it 'shows the title on the show page in a h1 tag' do
-    visit "/posts/#{@post.id}"
-    expect(page).to have_css("h1", text: "My Post")
-  end
-
-  it 'to post pages' do
-    visit "/posts/#{@post.id}"
+describe 'new post' do
+  it 'ensures that the form route works with new action' do
+    visit new_post_path
     expect(page.status_code).to eq(200)
   end
 
-  it 'shows the description on the show page in a p tag' do
-    visit "/posts/#{@post.id}"
-    expect(page).to have_css("p", text: "My post desc")
+  it 'has the form render with the new action' do
+    visit new_post_path
+    expect(page).to have_content("Post Form")
   end
-end
 
-describe 'index page' do
-  it 'links to post page' do
-    second_post = Post.create(title: "My Title", description: "My post description")
-    visit posts_path
-    expect(page).to have_link(second_post.title, href: post_path(second_post))
+  it 'shows a new form that submits content and redirects to new page and prints out params' do
+    visit new_post_path
+
+    fill_in 'post_title', with: "My post title"
+    fill_in 'post_description', with: "My post description"
+
+    click_on "Submit Post"
+
+    expect(page).to have_content("My post title")
   end
 end
