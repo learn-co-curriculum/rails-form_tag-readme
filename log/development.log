@@ -9,3 +9,106 @@ Migrating to CreatePosts (20151230232412)
   [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20151230232412"]]
   [1m[36m (1.3ms)[0m  [1mcommit transaction[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/posts/new" for ::1 at 2015-12-30 20:30:31 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by PostsController#new as HTML
+  Rendered posts/new.html.erb within layouts/application (2.7ms)
+Completed 200 OK in 393ms (Views: 383.8ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/posts" for ::1 at 2015-12-30 20:30:37 -0600
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"Hjp1RiR9ya6iFqkxVbwpk4S8rTowSYfUHBxQZzKCrcwuqlFxP2gFlrxGWRZYDnx9U/sdURHTMwpX6/wSjx76KQ==", "title"=>"Rails Introduction Quiz", "description"=>"asdfasd", "commit"=>"Submit Post"}
+Redirected to http://localhost:3000/posts/new
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new" for ::1 at 2015-12-30 20:30:37 -0600
+Processing by PostsController#new as HTML
+  Rendered posts/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 10ms (Views: 9.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new?someting=asdafdas" for ::1 at 2015-12-30 20:33:34 -0600
+Processing by PostsController#new as HTML
+  Parameters: {"someting"=>"asdafdas"}
+  Rendered posts/new.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 9ms (Views: 8.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new?someting=asdafdas" for ::1 at 2015-12-30 20:40:29 -0600
+Processing by PostsController#new as HTML
+  Parameters: {"someting"=>"asdafdas"}
+  Rendered posts/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 10ms (Views: 9.6ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-12-30 20:40:29 -0600
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-30 20:40:29 -0600
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-30 20:40:29 -0600
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-30 20:40:29 -0600
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-30 20:40:29 -0600
+
+
+Started GET "/posts/new" for ::1 at 2015-12-30 20:40:37 -0600
+Processing by PostsController#new as HTML
+  Rendered posts/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 10ms (Views: 9.3ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/posts" for ::1 at 2015-12-30 20:40:55 -0600
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"8wEmAU4QXBwNFcOKOvFNuQeQp8Yq4xHFehAkMFbvryDDkQI2VQWQJBNFM603QxhX0NcXrQt5pRsx54hF63P4xQ==", "title"=>"Rails Introduction Quiz", "description"=>"asdfasdfasd", "commit"=>"Submit Post"}
+Redirected to http://localhost:3000/posts/new
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new" for ::1 at 2015-12-30 20:40:55 -0600
+Processing by PostsController#new as HTML
+  Rendered posts/new.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 8ms (Views: 6.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new" for ::1 at 2015-12-30 20:41:09 -0600
+Processing by PostsController#new as HTML
+  Rendered posts/new.html.erb within layouts/application (0.4ms)
+Completed 200 OK in 10ms (Views: 8.9ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/application.self-e80e8f2318043e8af94dddc2adad5a4f09739a8ebb323b3ab31cd71d45fd9113.css?body=1" for ::1 at 2015-12-30 20:41:09 -0600
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2015-12-30 20:41:09 -0600
+
+
+Started GET "/assets/jquery_ujs.self-d456baa54c1fa6be2ec3711f0a72ddf7a5b2f34a6b4f515f33767d6207b7d4b3.js?body=1" for ::1 at 2015-12-30 20:41:09 -0600
+
+
+Started GET "/assets/jquery.self-a714331225dda820228db323939889f149aec0127aeb06255646b616ba1ca419.js?body=1" for ::1 at 2015-12-30 20:41:09 -0600
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2015-12-30 20:41:09 -0600
+
+
+Started POST "/posts" for ::1 at 2015-12-30 20:41:12 -0600
+Processing by PostsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wM0kUAuTuVVs64yO9C+2FgVExLWEkXYBL4fHjMvdHb/wXQBnEIZ1bXK7fKn5neP40gN03qULwt9kcGv5dkFKWg==", "title"=>"Rails Introduction Quiz", "description"=>"asdf", "commit"=>"Submit Post"}
+Redirected to http://localhost:3000/posts/new?post%5Baction%5D=create&post%5Bauthenticity_token%5D=wM0kUAuTuVVs64yO9C%2B2FgVExLWEkXYBL4fHjMvdHb%2FwXQBnEIZ1bXK7fKn5neP40gN03qULwt9kcGv5dkFKWg%3D%3D&post%5Bcommit%5D=Submit+Post&post%5Bcontroller%5D=posts&post%5Bdescription%5D=asdf&post%5Btitle%5D=Rails+Introduction+Quiz&post%5Butf8%5D=%E2%9C%93
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/posts/new?post%5Baction%5D=create&post%5Bauthenticity_token%5D=wM0kUAuTuVVs64yO9C%2B2FgVExLWEkXYBL4fHjMvdHb%2FwXQBnEIZ1bXK7fKn5neP40gN03qULwt9kcGv5dkFKWg%3D%3D&post%5Bcommit%5D=Submit+Post&post%5Bcontroller%5D=posts&post%5Bdescription%5D=asdf&post%5Btitle%5D=Rails+Introduction+Quiz&post%5Butf8%5D=%E2%9C%93" for ::1 at 2015-12-30 20:41:12 -0600
+Processing by PostsController#new as HTML
+  Parameters: {"post"=>{"action"=>"create", "authenticity_token"=>"wM0kUAuTuVVs64yO9C+2FgVExLWEkXYBL4fHjMvdHb/wXQBnEIZ1bXK7fKn5neP40gN03qULwt9kcGv5dkFKWg==", "commit"=>"Submit Post", "controller"=>"posts", "description"=>"asdf", "title"=>"Rails Introduction Quiz", "utf8"=>"✓"}}
+  Rendered posts/new.html.erb within layouts/application (0.3ms)
+Completed 200 OK in 8ms (Views: 7.2ms | ActiveRecord: 0.0ms)

@@ -14,8 +14,8 @@ describe 'new post' do
   it 'shows a new form that submits content and redirects to new page and prints out params' do
     visit new_post_path
 
-    fill_in 'post_title', with: "My post title"
-    fill_in 'post_description', with: "My post description"
+    fill_in 'title', with: "My post title"
+    fill_in 'description', with: "My post description"
 
     click_on "Submit Post"
 

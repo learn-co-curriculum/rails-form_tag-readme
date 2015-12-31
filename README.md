@@ -79,7 +79,7 @@ it 'shows a new form that submits content and redirects to new page and prints o
 end
 ```
 
-This is a temporary spec since we eventually will want this to form to redirect to a newly created record page, but we'll use it to ensure our form is working properly. This fails for obvious reasons, let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field `post_title`. Let's add the following HTML form items into the view template:
+This fails for obvious reasons, let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field `post_title`. Let's add the following HTML form items into the view template:
 
 ```ERB
 <h3>Post Form</h3>
@@ -93,6 +93,8 @@ This is a temporary spec since we eventually will want this to form to redirect 
 
   <input type="submit" value="Submit Post">
 </form>
+
+<%= params.inspect %>
 ```
 
 In looking at both of the input elements, I'm using the standard Rails convention:
@@ -100,6 +102,8 @@ In looking at both of the input elements, I'm using the standard Rails conventio
 * `id` - This will have the model name followed by an underscore and then the attribute name
 
 * `name` - This is where Rails looks for the parameters and stores it in a params Hash. In a traditional Rails application this will be nested inside of the model with the syntax `model[attribute]`, however we will work through that in a later lesson.
+
+You'll also notice that I'm printing out the params to the page, this is because our Capybara tests will need to have the content rendered onto the page in order to pass, in a normal application the page would redirect to a `show` or `index` page and this wouldn't be necessary.
 
 Ok, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page, let's first update the form so that it has an action:
 
@@ -131,17 +135,16 @@ new_post  GET     /posts/new(.:format)  posts#new
 post      GET     /post/:id(.:format)   posts#show
 ```
 
-Now let's add in a `create` action in the posts' controller and have it grab the params, store them in an instance variable and then redirect to the new page:
+Now let's add in a `create` action in the posts' controller and have it grab the params, store them in an instance variable and then redirect to the new page (you can ignore how I'm passing the `@post` instance variable through the route, that is simply so the view can have access to the submitted form params):
 
 ```ruby
 def create
-  redirect_to new_post_path
+  @post = params
+  redirect_to new_post_path(post: @post)
 end
 ```
 
-This will print out the form params to the terminal so you will be able to see them in the same window that the rails server is running.
-
-If you run the rails server and go to the ```posts/new``` page and fill in the title and description form elements and click submit you will find a new type of error:
+If you run the rails server and go to the `posts/new` page and fill in the title and description form elements and click submit you will find a new type of error:
 
 ![InvalidAuthenticityToken](https://s3.amazonaws.com/flatiron-bucket/readme-lessons/InvalidAuthenticityToken.png)
 
