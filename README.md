@@ -155,15 +155,15 @@ Which leads us to a very important part of Rails forms: CSRF.
 
 First and foremost, CSRF is an acronym for: Cross-Site Request Forgery (CSRF). Instead of giving a boring explanation of what happens during a CSRF request, let's walk through a real life example of a Cross-Site Request Forgery hack:
 
-1. You go to your bank website and login, you check your balance and then open up a new tab in the browser and go to your favorite meme site.
+1. You go to your bank website and login; you check your balance and then open up a new tab in the browser and go to your favorite meme site.
 
-2. Without you knowing the meme site is actually a hacking site that has scripts running the background as soon as you land on the page.
+2. Without you knowing, the meme site is actually a hacking site that has scripts running in the background as soon as you land on their page.
 
 3. One of the scripts on the site hijacks the banking session that you have open in the other browser and submits a form request to transfer money to their account.
 
-4. The banking form can't tell that the form request wasn't made by you, so it all goes through just like you were the one who made the request.
+4. The banking form can't tell that the form request wasn't made by you, so it goes through the process as if you were the one who made the request.
 
-This is a Cross-Site Request Forgery request, one site makes a request to another site via a form. Rails blocks this from happening by default by requiring that a unique authenticity token is submitted with each form. This authenticity token is stored in the session and can't be hijacked by hackers since it performs a match check when the form is submitted and will throw an error if the token isn't there or doesn't match.
+This is a Cross-Site Request Forgery request; one site makes a request to another site via a form. Rails blocks this from happening by default by requiring that a unique authenticity token is submitted with each form. This authenticity token is stored in the session and can't be hijacked by hackers since it performs a match check when the form is submitted and will throw an error if the token isn't there or doesn't match.
 
 To fix this `ActionController::InvalidAuthenticityToken` error, we can integrate the `form_authenticity_token` helper into the form as a hidden field:
 
