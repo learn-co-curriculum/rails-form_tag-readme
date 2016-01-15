@@ -3,18 +3,18 @@
 
 ## Rails Forms
 
-Welcome to the world of forms in Rails, which will give your users the ability to submit data into form fields, this can be used for: creating new database records, building a contact form, integrating a search engine field, and pretty much every other aspect of the application that requires user input. When it comes to forms in Rails you will discover that you will have the flexibility to utilize:
+Welcome to the world of forms in Rails which will give users the ability to submit data into form fields. This can be used for: creating new database records, building a contact form, integrating a search engine field, and pretty much every other aspect of the application that requires user input. When it comes to forms in Rails you will discover that you will have the flexibility to utilize:
 
 * Built in form helper methods
 
 * Plain HTML form elements
 
-This lesson is going to begin with integrating HTML form elements and then slowly start to refactor the form using Rails methods. It would be very easy to integrate form helpers and we could have our form working in a few minutes, however to fully understand what Rails is doing behind the scenes is more important than getting this form working, so we're going to build the system from the ground up so when we're finished you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
+This lesson is going to begin with integrating HTML form elements and then slowly start to refactor the form using Rails methods. It would be very easy to integrate form helpers (and we could have our form working in a few minutes), however, to fully understand what Rails is doing behind the scenes is more important than getting this form working. We're going to build the system from the ground up so when we're finished you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
 
 
 ## Rendering the form view
 
-Today we'll be giving the user the ability to create a new post in our BlogFlash application. Let's first create a Capybara spec to ensure that going to `posts/new` takes us to our form. If you remember back to the rails route helper lesson we now know we don't need to hard code the route into our tests any long, let's use the standard RESTful convention of `new_post_path` for the route helper name:
+Today we'll be giving the user the ability to create a new post in our BlogFlash application. Let's first create a Capybara spec to ensure that going to `posts/new` takes us to our form. If you remember back to the rails route helper lesson, we now know we don't need to hard code the route into our tests any longer. Let's use the standard RESTful convention of `new_post_path` for the route helper name:
 
 ```ruby
 # specs/features/post_spec.rb
@@ -33,14 +33,14 @@ As expected this results in a failure saying that we don't have a `new_post_path
 resources :posts, only: [:index, :new]
 ```
 
-Now it gives the failure `The action 'new' could not be found for PostsController`, to correct this let's add a `new` action in the `post` controller:
+Now it gives the failure `The action 'new' could not be found for PostsController`. To correct this, let's add a `new` action in the `post` controller:
 
 ```ruby
 def new
 end
 ```
 
-Lastly it says we're missing a template, let's add `app/views/posts/new.html.erb`. The tests are all passing for our routing, let's add a matcher spec to make sure the form itself is being shown on this page:
+Lastly, it says we're missing a template. Let's add `app/views/posts/new.html.erb`. Now, all our tests are passing for our routing; let's add a matcher spec to make sure the form itself is being shown on this page:
 
 ```ruby
 # specs/features/post_spec.rb
@@ -53,16 +53,16 @@ describe 'new post' do
 end
 ```
 
-Running this spec gets a matcher error, we can get this passing by adding the HTML `<h3>Post Form</h3>` to the `new.html.erb` view template.
+Running this spec gets a matcher error. We can get this passing by adding the HTML `<h3>Post Form</h3>` to the `new.html.erb` view template.
 
 
 ## Building the form in HTML
 
-Our first pass at the form will be in plain HTML, and in this reading we're not concerned with creating any records in the database, our focus is simply on the form process, so we'll simply be printing out the submitted form params on the show page.
+Our first pass at the form will be in plain HTML. In this reading we're not concerned with creating any records in the database, our focus is simply on the form process. We'll simply be printing out the submitted form params on the show page.
 
-Let's create a spec for this, it's going to take a while for this to pass since we're going to be spending some time on the HTML creation process, but it's a good practice to ensure all new features are tested before the implementation code is added.
+Let's create a spec for this. It's going to take a while for this to pass since we're going to be spending some time on the HTML creation process, but it's a good practice to ensure all new features are tested before the implementation code is added.
 
-As you are updating the code, make sure to test it out in the browser, don't just rely on the tests, it's important to see the errors in both the tests and the browser since you will want to become familiar with both types of failure messages.
+As you are updating the code, make sure to test it out in the browser – don't just rely on the tests. It's important to see the errors in both the tests and the browser since you will want to become familiar with both types of failure messages.
 
 ```ruby
 # specs/features/post_spec.rb
@@ -103,9 +103,9 @@ In looking at both of the input elements, I'm using the standard Rails conventio
 
 * `name` - This is where Rails looks for the parameters and stores it in a params Hash. In a traditional Rails application this will be nested inside of the model with the syntax `model[attribute]`, however we will work through that in a later lesson.
 
-You'll also notice that I'm printing out the params to the page, this is because our Capybara tests will need to have the content rendered onto the page in order to pass, in a normal application the page would redirect to a `show` or `index` page and this wouldn't be necessary.
+You'll also notice that I'm printing out the params to the page. This is because our Capybara tests will need to have the content rendered onto the page in order to pass. In a normal application, the page would redirect to a `show` or `index` page and this wouldn't be necessary.
 
-Ok, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page, let's first update the form so that it has an action:
+Ok, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page. Let's first update the form so that it has an action:
 
 ```ERB
 <form action="<%= posts_path %>">
@@ -119,7 +119,7 @@ This will now redirect to `/posts`, however we also need to add a method so that
 
 If you open up the browser and try this you will get an error since the `create` route doesn't exist yet.
 
-Next we need to draw a route so that the routing system knows what to do when a POST request is sent to the `/posts` resource:
+Next, we need to draw a route so that the routing system knows what to do when a POST request is sent to the `/posts` resource:
 
 ```ruby
 resources :posts, only: [:index, :new, :create]
@@ -258,4 +258,5 @@ fill_in 'description', with: "My post description"
 
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
+<a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
