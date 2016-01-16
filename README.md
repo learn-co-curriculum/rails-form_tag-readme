@@ -165,7 +165,7 @@ First and foremost, CSRF is an acronym for: Cross-Site Request Forgery (CSRF). I
 
 This is a Cross-Site Request Forgery request, one site makes a request to another site via a form. Rails blocks this from happening by default by requiring that a unique authenticity token is submitted with each form. This authenticity token is stored in the session and can't be hijacked by hackers since it performs a match check when the form is submitted and will throw an error if the token isn't there or doesn't match.
 
-To fix this `ActionController::InvalidAuthenticityToken` error, we can integrate the `form_authenticity_token` helper into the form as a hidden field:
+To fix this `ActionController::InvalidAuthenticityToken` error we can integrate the `form_authenticity_token` helper into the form as a hidden field:
 
 ```ERB
 <h3>Post Form</h3>
@@ -182,7 +182,7 @@ To fix this `ActionController::InvalidAuthenticityToken` error, we can integrate
 </form>
 ```
 
-If you refresh the page you will see that not only is the error fixed, but the elements are now also being printed out on the page! Running the specs you will see that our spec is now passing, so our form is working, however this might be one of the ugliest Rails forms I've ever seen, so let's do some re-factoring.
+If you refresh the page you will see that not only is the error fixed, but the elements are now also being printed out on the page! Running the specs you will see that our spec is now passing, so our form is working. However, this might be one of the ugliest Rails forms I've ever seen, so let's do some re-factoring.
 
 
 ## Using form helpers
@@ -217,7 +217,7 @@ Running the tests you will see that all of the tests are still passing. If you g
 </form>
 ```
 
-The `form_tag` Rails helper is smart enough to know that we want to pass the form params using the POST method and it automatically render the HTML that we were writing by hand before.
+The `form_tag` Rails helper is smart enough to know that we want to pass the form params using the POST method and it automatically renders the HTML that we were writing by hand before.
 
 Now let's integrate some other form helpers to let Rails generate the input elements for us, for this form we'll be using the `text_field_tag` and `text_area_tag` tag and pass them the attributes with symbols. It's important to realize that form helpers aren't magic, they are simply Ruby methods that have arguments, which are the inputs and additional parameters related to the form elements. In addition to updating the form fields, we'll also replace the HTML tag for the submit button with the `submit_tag`. Lastly, we can remove the manual authenticity token call since that is generated automatically through the `form_tag` helper:
 
@@ -247,7 +247,7 @@ So what HTML does this generate for us? Below is the raw HTML:
 </form>
 ```
 
-Notice how the `name` and `id` elements are different from what we needed to use when we manually built out the form? By utilizing the form tag helpers Rails streamlined the naming structure for the `name` and `id` values since we were able to simply provide a symbol of the attribute the input was associated with.
+Notice how the `name` and `id` elements are different from what we needed to use when we manually built out the form. By utilizing the form tag helpers, Rails streamlined the naming structure for the `name` and `id` values since we were able to simply provide a symbol of the attribute the input was associated with.
 
 This is all working on the page, however it broke some of our tests since it streamlined the ID attribute in the form, so let's update our spec:
 
@@ -258,4 +258,5 @@ fill_in 'description', with: "My post description"
 
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
+<a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
