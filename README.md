@@ -258,5 +258,5 @@ fill_in 'description', with: "My post description"
 
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
-<a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
+<p data-visibility='hidden'>View <a href='https://learn.co/lessons/rails-form_tag-readme' title='Rails form_tag'>Rails form_tag</a> on Learn.co and start learning to code for free.</p>
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
