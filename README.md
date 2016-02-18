@@ -132,7 +132,6 @@ Prefix    Verb    URI                   Controller#Action
 posts     GET     /posts(.:format)      posts#index
           POST    /posts(.:format)      posts#create
 new_post  GET     /posts/new(.:format)  posts#new
-post      GET     /post/:id(.:format)   posts#show
 ```
 
 Now let's add in a `create` action in the posts' controller and have it grab the params, store them in an instance variable and then redirect to the new page (you can ignore how I'm passing the `@post` instance variable through the route, that is simply so the view can have access to the submitted form params):
@@ -258,5 +257,5 @@ fill_in 'description', with: "My post description"
 
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
-<p data-visibility='hidden'>View <a href='https://learn.co/lessons/rails-form_tag-readme' title='Rails form_tag'>Rails form_tag</a> on Learn.co and start learning to code for free.</p>
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
+
