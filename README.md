@@ -9,7 +9,14 @@ Welcome to the world of forms in Rails which will give users the ability to subm
 
 * Plain HTML form elements
 
-This lesson is going to begin with integrating HTML form elements and then slowly start to refactor the form using Rails methods. It would be very easy to integrate form helpers (and we could have our form working in a few minutes), however, to fully understand what Rails is doing behind the scenes is more important than getting this form working. We're going to build the system from the ground up so when we're finished you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
+This lesson is going to begin with integrating HTML form elements and then
+slowly start to refactor the form using Rails methods. It would be very easy to
+integrate form helpers (and we could have our form working in a few minutes),
+however, to fully understand what Rails is doing behind the scenes is more
+important than getting the form working right away. We're going to build the
+system from the ground up so when we're finished you should be able to
+understand all of the processes that are necessary in order to process forms in
+an application properly and securely.
 
 
 ## Rendering the form view
@@ -70,6 +77,10 @@ As you are updating the code, make sure to test it out in the browser – don't 
 it 'shows a new form that submits content and redirects to new page and prints out params' do
   visit new_post_path
 
+  # The spec currently calls these fields "title"
+  # and "description" — you can change that for now,
+  # then change it back later after we refactor (this is
+  # a pretty common workflow — it's best to get used to it!)
   fill_in 'post_title', with: "My post title"
   fill_in 'post_description', with: "My post description"
 
@@ -79,7 +90,7 @@ it 'shows a new form that submits content and redirects to new page and prints o
 end
 ```
 
-This fails for obvious reasons, let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field `post_title`. Let's add the following HTML form items into the view template:
+This fails for obvious reasons. Let's follow the TDD process and let the failures help build our form. The first error says that it can't find the field `post_title`. Let's add the following HTML form items into the view template:
 
 ```ERB
 <h3>Post Form</h3>
@@ -97,15 +108,15 @@ This fails for obvious reasons, let's follow the TDD process and let the failure
 <%= params.inspect %>
 ```
 
-In looking at both of the input elements, I'm using the standard Rails convention:
+We're using pretty standard conventions here:
 
 * `id` - This will have the model name followed by an underscore and then the attribute name
 
 * `name` - This is where Rails looks for the parameters and stores it in a params Hash. In a traditional Rails application this will be nested inside of the model with the syntax `model[attribute]`, however we will work through that in a later lesson.
 
-You'll also notice that I'm printing out the params to the page. This is because our Capybara tests will need to have the content rendered onto the page in order to pass. In a normal application, the page would redirect to a `show` or `index` page and this wouldn't be necessary.
+You'll also notice that we're printing out the params to the page. This is because our Capybara tests will need to have the content rendered onto the page in order to pass. In a normal application, the page would redirect to a `show` or `index` page and this wouldn't be necessary.
 
-Ok, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page. Let's first update the form so that it has an action:
+Okay, so the spec was able to fill in the form elements and submit, but it's giving an error because this form doesn't actually redirect to any page. Let's first update the form so that it has an action:
 
 ```ERB
 <form action="<%= posts_path %>">
@@ -152,7 +163,7 @@ Which leads us to a very important part of Rails forms: CSRF.
 
 ## What is CSRF?
 
-First and foremost, CSRF is an acronym for: Cross-Site Request Forgery (CSRF). Instead of giving a boring explanation of what happens during a CSRF request, let's walk through a real life example of a Cross-Site Request Forgery hack:
+"CSRF" stands for: Cross-Site Request Forgery. Instead of giving a boring explanation of what happens during a CSRF request, let's walk through a real life example of a Cross-Site Request Forgery hack:
 
 1. You go to your bank website and login; you check your balance and then open up a new tab in the browser and go to your favorite meme site.
 
@@ -227,7 +238,7 @@ Now let's integrate some other form helpers to let Rails generate the input elem
 
   <label>Post Description</label><br>
   <%= text_area_tag :description %><br>
-  
+
   <%= submit_tag "Submit Post" %>
 <% end %>
 ```
@@ -241,7 +252,7 @@ So what HTML does this generate for us? Below is the raw HTML:
 
   <label>Post Description</label><br>
   <textarea name="description" id="description"></textarea><br>
-  
+
   <input type="submit" name="commit" value="Submit Post" />
 </form>
 ```
@@ -258,4 +269,3 @@ fill_in 'description', with: "My post description"
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
-
