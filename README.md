@@ -9,14 +9,7 @@ Welcome to the world of forms in Rails which will give users the ability to subm
 
 * Plain HTML form elements
 
-This lesson is going to begin with integrating HTML form elements and then
-slowly start to refactor the form using Rails methods. It would be very easy to
-integrate form helpers (and we could have our form working in a few minutes),
-however, to fully understand what Rails is doing behind the scenes is more
-important than getting the form working right away. We're going to build the
-system from the ground up so when we're finished you should be able to
-understand all of the processes that are necessary in order to process forms in
-an application properly and securely.
+This lesson is going to begin with integrating HTML form elements and then slowly start to refactor the form using Rails methods. It would be very easy to integrate form helpers (and we could have our form working in a few minutes), however, to fully understand what Rails is doing behind the scenes is more important than getting the form working right away. We're going to build the system from the ground up so when we're finished you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
 
 
 ## Rendering the form view
@@ -269,3 +262,5 @@ fill_in 'description', with: "My post description"
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/rails-form_tag-readme'>Rails form_tag</a> on Learn.co and start learning to code for free.</p>
