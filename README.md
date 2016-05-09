@@ -9,14 +9,7 @@ Welcome to the world of forms in Rails which will give users the ability to subm
 
 * Plain HTML form elements
 
-This lesson is going to begin with integrating HTML form elements and then
-slowly start to refactor the form using Rails methods. It would be very easy to
-integrate form helpers (and we could have our form working in a few minutes),
-however, to fully understand what Rails is doing behind the scenes is more
-important than getting the form working right away. We're going to build the
-system from the ground up so when we're finished you should be able to
-understand all of the processes that are necessary in order to process forms in
-an application properly and securely.
+This lesson is going to begin with integrating HTML form elements and then slowly start to refactor the form using Rails methods. It would be very easy to integrate form helpers (and we could have our form working in a few minutes), however, to fully understand what Rails is doing behind the scenes is more important than getting the form working right away. We're going to build the system from the ground up so when we're finished you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
 
 
 ## Rendering the form view
@@ -197,7 +190,7 @@ If you refresh the page you will see that not only is the error fixed, but the e
 
 ## Using form helpers
 
-The `ActionView` has a number of methods we can use to streamline our form. What's `ActionView`? `ActionView` is a sub-gem of Rails that has a number of helper methods that we can use in a Rails application that assist with streamling view template code. Let's start by integrating a Rails `form_tag` element:
+The `ActionView` has a number of methods we can use to streamline our form. What's `ActionView`? `ActionView` is a sub-gem of Rails that has a number of helper methods that we can use in a Rails application that assist with streamlining view template code. Let's start by integrating a Rails `form_tag` element:
 
 ```ERB
 <%= form_tag posts_path do %>
@@ -269,3 +262,5 @@ fill_in 'description', with: "My post description"
 Running the specs again and now we're back to everything passing and you now know how to build a Rails form from scratch and refactor it using Rails form helper methods, nice work!
 
 <a href='https://learn.co/lessons/rails-form_tag-readme' data-visibility='hidden'>View this lesson on Learn.co</a>
+
+<p class='util--hide'>View <a href='https://learn.co/lessons/rails-form_tag-readme'>Rails form_tag</a> on Learn.co and start learning to code for free.</p>
