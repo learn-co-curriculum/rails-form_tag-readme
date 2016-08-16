@@ -22,7 +22,7 @@ Today we'll be giving the user the ability to create a new post in our BlogFlash
 require 'rails_helper'
 
 describe 'new post' do
-  it 'ensures that the form route works with new action' do
+  it 'ensures that the form route works with the /new action' do
     visit new_post_path
     expect(page.status_code).to eq(200)
   end
@@ -42,7 +42,7 @@ def new
 end
 ```
 
-Lastly, it says we're missing a template. Let's create `app/views/posts/new.html.erb`. Now that our routing test is passing, let's add a matcher spec to ensure that the form itself is being shown on the new post page:
+Lastly, it says we're missing a template. Let's create `app/views/posts/new.html.erb`. Now that our routing test is passing, let's add a matcher spec to ensure that the template is properly displaying HTML on the new post page:
 
 ```ruby
 # specs/features/post_spec.rb
@@ -53,9 +53,9 @@ describe 'new post' do
 
   ...
 
-  it 'has the form render with the new action' do
+  it 'renders HTML in the /new template' do
     visit new_post_path
-    expect(page).to have_content("Post Form")
+    expect(page).to have_content('Post Form')
   end
 end
 ```
@@ -80,7 +80,7 @@ describe 'new post' do
 
   ...
 
-  it "shows a new form that submits content and redirects to the index page, which now contains the submitted post's title and description" do
+  it "displays a new post form that redirects to the index page, which then contains the submitted post's title and description" do
     visit new_post_path
     fill_in 'post_title', with: 'My post title'
     fill_in 'post_description', with: 'My post description'
