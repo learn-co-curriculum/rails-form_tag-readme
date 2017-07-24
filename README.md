@@ -11,6 +11,8 @@ Welcome to the world of Rails forms, which give users the ability to submit data
 
 This lesson is going to begin by integrating HTML form elements and then slowly start refactoring the form using Rails methods. It would be very easy to integrate form helpers (and we could have our form working in a few minutes). However, fully understanding what Rails is doing behind the scenes is more important than getting the form working right away. We're going to build the system from the ground up. When we're finished, you should be able to understand all of the processes that are necessary in order to process forms in an application properly and securely.
 
+***Note:** For the next few labs, we're not going to use mass assignment, we'll assign each attribute individually. For example, instead of* ```Student.create(params[:students])``` *we'll write* ```Student.create(first_name: params[:first_name], last_name: params[:last_name])``` *and name our fields in the view files without the "student" preface. We'll discuss why in the upcoming reading on Strong Params.*
+
 
 ## Rendering the form view
 
