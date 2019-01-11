@@ -27,14 +27,14 @@ attribute individually. For example, instead of
 view files without the "student" preface. We'll discuss why in the upcoming
 reading on Strong Params.
 
-## Rendering the form view
+## Rendering the Form View
 
 Today we'll be giving the user the ability to create a new post in our BlogFlash
 application. Let's first create a Capybara spec to ensure that going to
-`posts/new` takes us to our form. If you think back to the [Rails URL Helpers
-lesson](https://learn.co/lessons/rails-url-helpers-readme), we know that we
-don't need to hard-code the route into our tests any longer. Let's use the
-standard RESTful convention of `new_post_path` for the route helper name:
+`posts/new` takes us to our form. If you think back to the
+[Rails URL Helpers lesson][helpers], we know that we don't need to hard-code the
+route into our tests any longer. Let's use the standard RESTful convention of
+`new_post_path` for the route helper name:
 
 ```ruby
 # specs/features/post_spec.rb
@@ -84,7 +84,8 @@ describe 'new post' do
 end
 ```
 
-Running this spec gets a matcher error. We can get this passing by adding `<h3>Post Form</h3>` to the `new.html.erb` view template.
+Running this spec gets a matcher error. We can get this passing by adding
+`<h3>Post Form</h3>` to the `new.html.erb` view template.
 
 ## Building the form in HTML
 
@@ -222,17 +223,17 @@ Which leads us to a very important part of Rails forms: CSRF.
 explanation of what happens during a CSRF request, let's walk through a
 real-life example of a Cross-Site Request Forgery hack:
 
-1. You go to your bank website and log in. After checking your balance, you open
-   up a new tab in the browser and go to your favorite meme site.
+1.  You go to your bank website and log in. After checking your balance, you open
+    up a new tab in the browser and go to your favorite meme site.
 
-2. Unbeknownst to you, the meme site is actually a hacking site that has scripts
-   running in the background as soon as you land on their page.
+2.  Unbeknownst to you, the meme site is actually a hacking site that has scripts
+    running in the background as soon as you land on their page.
 
-3. One of the scripts on the site hijacks the banking session that's open in the
-   other browser tab and submits a form request to transfer money to their account.
+3.  One of the scripts on the site hijacks the banking session that's open in the
+    other browser tab and submits a form request to transfer money to their account.
 
-4. The banking form can't tell that the form request wasn't made by you, so it
-   goes through the process as if you were the one who made the request.
+4.  The banking form can't tell that the form request wasn't made by you, so it
+    goes through the process as if you were the one who made the request.
 
 One site making a request to another site via a form is the general flow of a
 Cross-Site Request Forgery. Rails blocks this from happening by default by
@@ -357,5 +358,7 @@ Let's check out the raw HTML all these helper methods generate for us:
 Run the spec tests one last time to verify that everything is still passing. You
 now know how to build a Rails form from scratch and refactor it using Rails form
 helper methods. Nice work!
+
+[helpers]: https://learn.co/lessons/rails-url-helpers-readme
 
 <p class='util--hide'>View <a href='https://learn.co/lessons/rails-form_tag-readme'>Rails form_tag</a> on Learn.co and start learning to code for free.</p>
