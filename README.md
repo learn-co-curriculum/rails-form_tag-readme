@@ -217,6 +217,14 @@ error:
 
 Which leads us to a very important part of Rails forms: CSRF.
 
+**Note:** If you are seeing an error along the lines of `Cannot render console from (<IP address here>)! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255` you'll want to add this code to `config/environments/development.rb`, and not `config/application.rb`, so it is only applied in your development environment.
+
+```ruby
+class Application < Rails::Application
+  config.web_console.whitelisted_ips = '<IP address here>'
+end
+```
+
 ## What is CSRF?
 
 "CSRF" stands for: Cross-Site Request Forgery. Instead of giving a boring
