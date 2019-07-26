@@ -37,7 +37,7 @@ route into our tests any longer. Let's use the standard RESTful convention of
 `new_post_path` for the route helper name:
 
 ```ruby
-# specs/features/post_spec.rb
+# spec/features/post_spec.rb
 
 require 'rails_helper'
 
@@ -69,7 +69,7 @@ a matcher spec to ensure that the template is properly displaying HTML on the
 new post page:
 
 ```ruby
-# specs/features/post_spec.rb
+# spec/features/post_spec.rb
 
 require 'rails_helper'
 
@@ -105,7 +105,7 @@ the browser since you'll want to become familiar with both types of failure
 messages.
 
 ```ruby
-# specs/features/post_spec.rb
+# spec/features/post_spec.rb
 
 require 'rails_helper'
 
