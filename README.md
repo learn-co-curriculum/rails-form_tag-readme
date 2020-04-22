@@ -21,8 +21,8 @@ system from the ground up. When we're finished, you should be able to understand
 all of the processes that are necessary in order to process forms in an
 application properly and securely.
 
-**Note:** For the next few labs, we're not going to use mass assignment, we'll assign each
-attribute individually. For example, instead of
+**Note:** For the next few labs, we're not going to use mass assignment; instead 
+we'll assign each attribute individually. For example, instead of
 `Student.create(params[:students]) we'll write Student.create(first_name: params[:first_name], last_name: params[:last_name])` and name our fields in the
 view files without the "student" preface. We'll discuss why in the upcoming
 reading on Strong Params.
