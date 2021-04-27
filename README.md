@@ -9,7 +9,6 @@ aspect of the application that requires user input. When it comes to forms in
 Rails, you will discover that you will have the flexibility to utilize:
 
 - Built-in form helper methods
-
 - Plain HTML form elements
 
 This lesson is going to begin by integrating HTML form elements and then slowly
